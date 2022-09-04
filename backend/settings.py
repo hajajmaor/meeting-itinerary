@@ -22,16 +22,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-if environ.get('DJANGO_SECRET_KEY'):
-    SECRET_KEY = environ['DJANGO_SECRET_KEY']
-else:
-    SECRET_KEY = "django-insecure-a7g4x9@b%ug6xpyslk)v1ly6b7b6#=+#(5trj-zu(o9p3d*slp"
+try:
+    SECRET_KEY = environ["DJANGO_SECRET_KEY"]
+except KeyError:
+    with open("./.env", "r") as f:
+        SECRET_KEY = f.readline().split("=")[1]
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
+
+
+DJANGO_ADMIN_LOGS_DELETABLE = True
 
 # Application definition
 
@@ -42,13 +56,18 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'rest_framework',
-    'meeting_app_backend',
-
+    "rest_framework",
+    "debug_toolbar",
+    "rest_framework_simplejwt",
+    "corsheaders",
+    "django_admin_logs",
+    "meeting_app_backend",
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -75,7 +94,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "backend.wsgi.application"
+# WSGI_APPLICATION = "backend.wsgi.application"
 
 
 # Database
@@ -96,9 +115,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 
@@ -125,20 +150,20 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
 
 
-AUTH_USER_MODEL = 'meeting_app_backend.MeetingUser'
+AUTH_USER_MODEL = "meeting_app_backend.MeetingUser"
 
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT",),
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=10),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
-    'ALGORITHM': 'HS256',
-    'VERIFYING_KEY': None,
-    'SIGNING_KEY': SECRET_KEY,
-    'BLACKLIST_AFTER_ROTATION': False,
+    "ALGORITHM": "HS256",
+    "VERIFYING_KEY": None,
+    "SIGNING_KEY": SECRET_KEY,
+    "BLACKLIST_AFTER_ROTATION": False,
 }

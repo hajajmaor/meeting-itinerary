@@ -24,7 +24,7 @@ export default function Layout() {
                             <Link className="nav-link" to="#">Pricing</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link disabled" to="#">Disabled</Link>
+                            <Link className="nav-link" to="/login">Login</Link>
                         </li>
                     </ul>
                 </div>

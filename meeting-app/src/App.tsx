@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 
 import {UserContext} from "./contexts/UserContext";
 import IUser from "./models/User.Interface";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
 
@@ -33,12 +34,36 @@ function App() {
   }, []);
 
 
+
+  const getRoutesIfNotLoggedIn = () => {
+    return <></>;
+  }
+
+
+  const getRoutesIfLoggedIn = () => {
+
+    return <>
+      <Route path="/login" element={<LoginPage />} />
+    </>
+  }
+
+
+  const getRoutes = () => {
+    if (user === undefined) {
+      return getRoutesIfLoggedIn();
+    }
+    else {return getRoutesIfNotLoggedIn();}
+  }
+
+
+
+
   return (
     <BrowserRouter>
       <UserContext.Provider value={{user, update: updateUser}}>
         <Routes>
           <Route path="/" element={<Layout />}>
-
+            {getRoutes()}
           </Route>
 
         </Routes>

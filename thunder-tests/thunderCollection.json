@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "f9c23a86-3948-4f09-a9d6-5d3203f6419e",
+    "colName": "meeting-itinerary",
+    "created": "2022-09-04T14:12:23.742Z",
+    "sortNum": 10000,
+    "folders": [],
+    "settings": {
+      "headers": [],
+      "tests": [],
+      "options": {
+        "baseUrl": "http://localhost:8000/"
+      }
+    }
+  }
+]

@@ -7,8 +7,15 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
+django-admin-logs = "*"
+django-cors-headers = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
+black = "*"
 
 [requires]
 python_version = "3.10"
+
+[pipenv]
+allow_prereleases = true
