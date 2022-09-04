@@ -1,0 +1,14 @@
+version: '3'
+services:
+  database:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+      - 33066:33066
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "pa$$worD"
+      MYSQL_DATABASE: "meetingDB"
+      MYSQL_USER: "meeting-name"
+      MYSQL_PASSWORD: "testPassword"
