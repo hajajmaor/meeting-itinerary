@@ -9,7 +9,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user: MeetingUser):
         token = super().get_token(user)
-        print(user, type(user))
+        # print(user, type(user))
         token["role"] = user.role
         return token
 
