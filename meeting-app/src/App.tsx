@@ -12,6 +12,8 @@ function App() {
 
   // update the user context
   const updateUser = (user: IUser) => {
+    console.log("updating user to", user);
+
     setUser(user);
   };
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import jwtDecode, {JwtPayload} from "jwt-decode";
 import {useContext, useState} from "react";
 import {HostPlusPort} from "../consts";
 import {UserContext} from "../contexts/UserContext";
@@ -10,6 +11,11 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
+    interface ILogin200 {
+        token_type: string;
+        role: string;
+        user_id: number;
+    }
 
     const onsubmit = (e: any) => {
         e.preventDefault();
@@ -20,8 +26,11 @@ export default function LoginPage() {
                 }
                 const refresh_token = response.data.refresh;
                 const access_token = response.data.access;
+                const decoded = jwtDecode<ILogin200>(access_token)
+                console.log(decoded);
+
                 const user: IUser = {
-                    access_token, refresh_token, username, role: Role.User
+                    access_token, refresh_token, username, role: decoded.role === "admin" ? Role.Admin : Role.User
                 }
                 userContext.update(user);
             }
