@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from datetime import timedelta
+from os import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-a7g4x9@b%ug6xpyslk)v1ly6b7b6#=+#(5trj-zu(o9p3d*slp"
+if environ.get('DJANGO_SECRET_KEY'):
+    SECRET_KEY = environ['DJANGO_SECRET_KEY']
+else:
+    SECRET_KEY = "django-insecure-a7g4x9@b%ug6xpyslk)v1ly6b7b6#=+#(5trj-zu(o9p3d*slp"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -118,3 +123,22 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+
+AUTH_USER_MODEL = 'meeting_app_backend.MeetingUser'
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("JWT",),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=10),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    'ALGORITHM': 'HS256',
+    'VERIFYING_KEY': None,
+    'SIGNING_KEY': SECRET_KEY,
+    'BLACKLIST_AFTER_ROTATION': False,
+}
