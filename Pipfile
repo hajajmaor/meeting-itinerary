@@ -10,6 +10,7 @@ djangorestframework-simplejwt = "*"
 django-admin-logs = "*"
 django-cors-headers = "*"
 django-debug-toolbar = "*"
+mysqlclient = "*"
 
 [dev-packages]
 black = "*"
