@@ -1,4 +1,6 @@
 import {useEffect, useState} from "react";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Layout from "./components/Layout";
 
 import {UserContext} from "./contexts/UserContext";
 import IUser from "./models/User.Interface";
@@ -32,9 +34,17 @@ function App() {
 
 
   return (
-    <UserContext.Provider value={{user, update: updateUser}}>
-      <div>Hello World!</div>
-    </UserContext.Provider>
+    <BrowserRouter>
+      <UserContext.Provider value={{user, update: updateUser}}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+
+          </Route>
+
+        </Routes>
+        <div>Hello World!</div>
+      </UserContext.Provider>
+    </BrowserRouter>
   );
 }
 
