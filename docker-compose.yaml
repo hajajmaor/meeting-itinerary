@@ -5,10 +5,45 @@ services:
     ports:
       - 3306:3306
       - 33066:33066
-    volumes:
-      - ./mysql-data:/var/lib/mysql
+    networks:
+      - meeting-net
+    # volumes:
+    #   - ./mysql-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "pa$$worD"
       MYSQL_DATABASE: "meetingDB"
       MYSQL_USER: "meeting-name"
       MYSQL_PASSWORD: "testPassword"
+
+  # backend port 8000 in .
+  meeting-backend:
+    build: .
+    ports:
+      - 8000:8000
+    depends_on:
+      - database
+    networks:
+      - meeting-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3306"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # frontend port 8080 in ./meeting-app
+  meeting-app:
+    build: ./meeting-app
+    ports:
+      - 8080:8080
+    depends_on:
+      - meeting-backend
+    networks:
+      - meeting-net
+
+
+# 2 networks
+# 1. for backend and database
+# 2. for frontend and backend
+networks:
+  meeting-net:
+    driver: bridge

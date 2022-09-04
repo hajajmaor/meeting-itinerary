@@ -14,6 +14,9 @@ from datetime import timedelta
 from os import environ
 from pathlib import Path
 
+# print(environ)
+# print("DEBUG: ", environ.get("DEBUG"))
+# print("DJANGO_SECRET_KEY: ", environ.get("DJANGO_SECRET_KEY"))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,16 +26,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 try:
-    SECRET_KEY = environ["DJANGO_SECRET_KEY"]
+    SECRET_KEY = environ.get("DJANGO_SECRET_KEY")
 except KeyError:
     with open("./.env", "r") as f:
-        SECRET_KEY = f.readline().split("=")[1]
+        SECRET_KEY = f.readline().split(":")[1]
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+try:
+    DEBUG = environ.get("DEBUG")
+except KeyError:
+    DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
