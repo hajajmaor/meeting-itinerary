@@ -1,12 +1,16 @@
+import {useContext} from "react";
 import {Link, Outlet} from "react-router-dom";
+import {UserContext} from "../contexts/UserContext";
 
 export default function Layout() {
-
+    const userContext = useContext(UserContext);
+    const user = userContext.user;
     return <>
-        <div className="container">
-            <header className="m-3">Meeting App</header>
-        </div>
-        <nav className="navbar navbar-expand-md bg-light">
+        <header className="m-3 container">
+            <p>Meeting App</p>
+            <p>Hello: {user?.username ?? "Guest"}</p>
+        </header>
+        <nav className="navbar navbar-expand-md">
             <div className="container-fluid">
                 <Link to="/" className="navbar-brand">Navbar</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,9 +27,11 @@ export default function Layout() {
                         <li className="nav-item">
                             <Link className="nav-link" to="#">Pricing</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/login">Login</Link>
-                        </li>
+                        {user === undefined &&
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/login">Login</Link>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
