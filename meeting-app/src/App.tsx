@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {HelmetProvider} from 'react-helmet-async';
 import Layout from "./components/Layout";
 
 import {UserContext} from "./contexts/UserContext";
@@ -7,6 +8,7 @@ import IUser from "./models/User.Interface";
 import LoginPage from "./pages/LoginPage";
 
 import './App.css'
+import TopicsPage from "./pages/TopicsPage";
 
 
 function App() {
@@ -55,26 +57,38 @@ function App() {
 
 
   const getRoutes = () => {
+    let routes = <>
+      <Route path="/topics" element={<TopicsPage />} />
+    </>;
     if (user === undefined) {
-      return getRoutesIfLoggedIn();
+      return <>
+        {routes}
+        {getRoutesIfLoggedIn()}
+      </>;
     }
-    else {return getRoutesIfNotLoggedIn();}
+    else return <>
+      {routes}
+      {getRoutesIfNotLoggedIn()}
+    </>;
   }
+
 
 
 
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{user, update: updateUser}}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            {getRoutes()}
-          </Route>
+      <HelmetProvider>
+        <UserContext.Provider value={{user, update: updateUser}}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              {getRoutes()}
+            </Route>
 
-        </Routes>
-        <div>Hello World!</div>
-      </UserContext.Provider>
+          </Routes>
+        </UserContext.Provider>
+      </HelmetProvider>
+
     </BrowserRouter>
   );
 }

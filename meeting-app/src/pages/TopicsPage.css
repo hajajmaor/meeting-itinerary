@@ -1,0 +1,9 @@
+#topics{
+    min-height:300px;
+    position: relative;
+
+}
+#addNewTopic{
+    position: relative;
+    bottom:0;
+}

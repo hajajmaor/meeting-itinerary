@@ -1,9 +1,10 @@
 # import django router
 from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
-from .views import MyTokenObtainPairView
+from .views import MyTokenObtainPairView, TopicViewSet
 
 router = DefaultRouter()
+router.register("topics", TopicViewSet, basename="topics")
 
 
 urlpatterns = router.urls

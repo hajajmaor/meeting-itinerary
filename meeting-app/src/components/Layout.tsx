@@ -7,9 +7,11 @@ export default function Layout() {
     const userContext = useContext(UserContext);
     const user = userContext.user;
     return <>
-        <header className="m-3 container">
-            <p>Meeting App</p>
-            <p>Hello: {user?.username ?? "Guest"}</p>
+        <header className="my-3 container m-auto">
+            <div className="row">
+                <p className="col-md-3">Meeting App</p>
+                <p className="col-md">Hello: {user?.username ?? "Guest"}</p>
+            </div>
         </header>
         <nav className="navbar navbar-expand-md">
             <div className="container-fluid">
@@ -26,7 +28,7 @@ export default function Layout() {
                             <Link to="/" className="nav-link active" aria-current="page">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">Features</Link>
+                            <Link className="nav-link" to="/topics">Topics</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="#">Pricing</Link>
@@ -39,9 +41,14 @@ export default function Layout() {
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav><hr />
         <main className="m-4">
             <Outlet />
         </main>
+        <hr />
+        <footer className="container my-3">
+            <a href="https://www.flaticon.com/free-icons/meeting" title="meeting icons">Meeting icons created by Freepik - Flaticon</a>
+        </footer>
     </>
 }
+

@@ -1,3 +1,11 @@
 .brand-sm{
     height:75px;
 }
+main{
+    min-height: 250px;
+}
+
+hr{
+    margin: 0 1rem;
+    color: black;
+}
