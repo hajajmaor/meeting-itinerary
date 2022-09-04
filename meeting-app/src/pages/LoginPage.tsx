@@ -1,5 +1,5 @@
 import axios from "axios";
-import jwtDecode, {JwtPayload} from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import {useContext, useState} from "react";
 import {HostPlusPort} from "../consts";
 import {UserContext} from "../contexts/UserContext";
@@ -53,7 +53,7 @@ export default function LoginPage() {
 
         <div className="mb-3">
             <label htmlFor="password" className="form-label">Password</label>
-            <input type="password" className="form-control" id="password" minLength={process.env.NODE_ENV == 'production' ? 8 : 3} required value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type="password" className="form-control" id="password" minLength={process.env.NODE_ENV === 'production' ? 8 : 3} required value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <div className="mb-3 row">
             <button type="submit" className="btn btn-primary col mx-2">Submit</button>
