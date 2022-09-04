@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {HelmetProvider} from 'react-helmet-async';
 import Layout from "./components/Layout";
 
 import {UserContext} from "./contexts/UserContext";
@@ -66,6 +67,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <HelmetProvider>
       <UserContext.Provider value={{user, update: updateUser}}>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -75,6 +77,7 @@ function App() {
         </Routes>
         <div>Hello World!</div>
       </UserContext.Provider>
+      </HelmetProvider>
     </BrowserRouter>
   );
 }
