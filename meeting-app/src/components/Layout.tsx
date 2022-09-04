@@ -7,9 +7,11 @@ export default function Layout() {
     const userContext = useContext(UserContext);
     const user = userContext.user;
     return <>
-        <header className="m-3 container">
-            <p>Meeting App</p>
-            <p>Hello: {user?.username ?? "Guest"}</p>
+        <header className="my-3 container m-auto">
+            <div className="row">
+                <p className="col-md-3">Meeting App</p>
+                <p className="col-md">Hello: {user?.username ?? "Guest"}</p>
+            </div>
         </header>
         <nav className="navbar navbar-expand-md">
             <div className="container-fluid">

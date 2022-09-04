@@ -2,7 +2,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from rest_framework import serializers
 
-from .models import MeetingUser, Topic
+from .models import MeetingUser, Topic, TopicComment
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -14,10 +14,24 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 
-class TopicSerializer(serializers.ModelSerializer):
+class TopicCommentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     createdAt = serializers.DateTimeField(read_only=True)
 
     class Meta:
-        model = Topic
+        model = TopicComment
         fields = "__all__"
+
+
+class TopicSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    createdAt = serializers.DateTimeField(read_only=True)
+    comments = TopicCommentSerializer(
+        many=True,
+        read_only=True,
+        source="topiccomment_set",
+    )
+
+    class Meta:
+        model = Topic
+        fields = ["id", "topicText", "createdAt", "comments"]
