@@ -6,6 +6,9 @@ import {UserContext} from "./contexts/UserContext";
 import IUser from "./models/User.Interface";
 import LoginPage from "./pages/LoginPage";
 
+import './App.css'
+
+
 function App() {
 
   const [user, setUser] = useState<IUser | undefined>(undefined);
