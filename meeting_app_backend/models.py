@@ -2,15 +2,14 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Create your models here.
+class Role(models.TextChoices):
+    """admin or user"""
+
+    ADMIN = "admin"
+    USER = "user"
 
 
 class MeetingUser(AbstractUser):
-    class Role(models.TextChoices):
-        """admin or user"""
-
-        ADMIN = "admin"
-        USER = "user"
-
     role = models.CharField(max_length=10, choices=Role.choices, default=Role.USER)
 
 
