@@ -1,6 +1,7 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import {useContext, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import {HostPlusPort} from "../consts";
 import {UserContext} from "../contexts/UserContext";
 import IUser, {Role} from "../models/User.Interface";
@@ -10,6 +11,7 @@ export default function LoginPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     interface ILogin200 {
         token_type: string;
@@ -33,6 +35,7 @@ export default function LoginPage() {
                     access_token, refresh_token, username, role: decoded.role === "admin" ? Role.Admin : Role.User
                 }
                 userContext.update(user);
+                navigate("/", {replace: true})
             }
         ).catch(
             (error) => {
