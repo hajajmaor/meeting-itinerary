@@ -8,6 +8,7 @@ import IUser from "./models/User.Interface";
 import LoginPage from "./pages/LoginPage";
 
 import './App.css'
+import TopicsPage from "./pages/TopicsPage";
 
 
 function App() {
@@ -56,11 +57,21 @@ function App() {
 
 
   const getRoutes = () => {
+    let routes = <>
+      <Route path="/topics" element={<TopicsPage />} />
+    </>;
     if (user === undefined) {
-      return getRoutesIfLoggedIn();
+      return <>
+        {routes}
+        {getRoutesIfLoggedIn()}
+      </>;
     }
-    else {return getRoutesIfNotLoggedIn();}
+    else return <>
+      {routes}
+      {getRoutesIfNotLoggedIn()}
+    </>;
   }
+
 
 
 
@@ -68,16 +79,16 @@ function App() {
   return (
     <BrowserRouter>
       <HelmetProvider>
-      <UserContext.Provider value={{user, update: updateUser}}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            {getRoutes()}
-          </Route>
+        <UserContext.Provider value={{user, update: updateUser}}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              {getRoutes()}
+            </Route>
 
-        </Routes>
-        <div>Hello World!</div>
-      </UserContext.Provider>
+          </Routes>
+        </UserContext.Provider>
       </HelmetProvider>
+
     </BrowserRouter>
   );
 }
