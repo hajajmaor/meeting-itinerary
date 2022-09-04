@@ -3,8 +3,14 @@ from django.db import models
 
 # Create your models here.
 
+
+
 class MeetingUser(AbstractUser):
-    pass
+    class Role(models.TextChoices):
+        """admin or user"""
+        ADMIN = 'admin'
+        USER = 'user'
+    role=models.CharField(max_length=10, choices=Role.choices, default=Role.USER)
 
 class Topic(models.Model):
     topicText = models.CharField(max_length=255, blank=False, null=False,unique=True)
