@@ -1,6 +1,7 @@
 import {useContext} from "react";
 import {Link, Outlet} from "react-router-dom";
 import {UserContext} from "../contexts/UserContext";
+import './layout.css'
 
 export default function Layout() {
     const userContext = useContext(UserContext);
@@ -12,7 +13,10 @@ export default function Layout() {
         </header>
         <nav className="navbar navbar-expand-md">
             <div className="container-fluid">
-                <Link to="/" className="navbar-brand">Navbar</Link>
+                <Link to="/" className="navbar-brand">
+                    {/* https://www.flaticon.com/free-icon/meeting_115918 */}
+                    <img src="/images/meeting.png" className="brand-sm" alt="meeting icon" />
+                </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
