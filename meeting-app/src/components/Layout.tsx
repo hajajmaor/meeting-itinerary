@@ -3,7 +3,7 @@ import {Link, Outlet} from "react-router-dom";
 import {UserContext} from "../contexts/UserContext";
 import './layout.css'
 
-export default function Layout() {
+export default function Layout(props: {logOutfunc: () => void}) {
     const userContext = useContext(UserContext);
     const user = userContext.user;
     return <>
@@ -11,6 +11,7 @@ export default function Layout() {
             <div className="row">
                 <h3 className="col-md-3">Meeting App</h3>
                 <p className="col-md">Hello: {user?.username ?? "Guest"}</p>
+                {user && <button className="btn btn-primary col-md-2" onClick={props.logOutfunc}>Log out</button>}
             </div>
         </header>
         <nav className="navbar navbar-expand-md">
@@ -30,9 +31,9 @@ export default function Layout() {
                         <li className="nav-item">
                             <Link className="nav-link" to="/topics">Topics</Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link className="nav-link" to="#">Pricing</Link>
-                        </li>
+                        </li> */}
                         {user === undefined &&
                             <li className="nav-item">
                                 <Link className="nav-link" to="/login">Login</Link>
