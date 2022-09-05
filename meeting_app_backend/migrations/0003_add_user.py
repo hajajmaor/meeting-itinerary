@@ -9,18 +9,26 @@ from meeting_app_backend.models import MeetingUser, Role
 def add_user(apps, schema_editor):
     User: MeetingUser = apps.get_model(*settings.AUTH_USER_MODEL.split("."))
     User.objects.create(
-        email="maor@example.com",
+        email="admin@example.com",
         password=make_password("testPassword123"),
         role=Role.ADMIN,
-        username="maorTest",
-        # is_admin=True,
+        username="adminTest",
+        is_superuser=True,
         is_staff=True,
+    )
+    User.objects.create(
+        email="user@example.com",
+        password=make_password("testPassword123"),
+        role=Role.USER,
+        username="userTest",
+        is_superuser=False,
+        is_staff=False,
     )
 
 
 def delete_user(apps, schema_editor):
     User: MeetingUser = apps.get_model(*settings.AUTH_USER_MODEL.split("."))
-    User.objects.filter(email="maor@example.com").delete()
+    User.objects.all().delete()
 
 
 class Migration(migrations.Migration):
