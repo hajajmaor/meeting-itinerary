@@ -1,18 +1,20 @@
 import axios from "axios";
-import {useState, FormEvent} from "react";
+import {useState, FormEvent, useContext} from "react";
 import {HostPlusPort} from "../../../consts";
+import {UserContext} from "../../../contexts/UserContext";
 
 export default function AddNewTopic(props: {setUpdateRequired: (updateRequired: boolean) => void}) {
 
     const [topicText, setTopicText] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
-
+    const user = useContext(UserContext).user;
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
-        axios.post(HostPlusPort + "/api/topics/", {topicText: topicText}).then(
+        const headers = {'Authorization': 'JWT ' + user?.access_token};
+        axios.post(HostPlusPort + "/api/topics/", {topicText: topicText}, {headers: headers}).then(
             (response) => {
                 setTopicText("");
                 setError("");
