@@ -21,17 +21,7 @@ function App() {
     if (process.env.NODE_ENV === "development") {
       console.log("updating user to", user);
     }
-    if (user) {
-      //refresh the access token
-      axios
-        .post(HostPlusPort + "/api/token/refresh/", {
-          refresh: user.refresh_token,
-        })
-        .then((response) => {
-          const newUser = {...user, access_token: response.data.access};
-          setUser(newUser);
-        });
-    } else setUser(user);
+    setUser(user);
   };
 
   const logOut = () => {
@@ -58,13 +48,18 @@ function App() {
     }
   }, []);
 
+
+  const verifyUser = (user: IUser) =>
+    axios
+      .post(HostPlusPort + "/api/token/verify/", {token: user.access_token});
+
+
   // verify the user with POST {token:user.access} to /api/token/verify/
   // if the user is verified, set the user to the user
   // if the user is not verified, set the user to undefined
   useEffect(() => {
     if (user) {
-      axios
-        .post(HostPlusPort + "/api/token/verify/", {token: user.access_token})
+      verifyUser(user)
         .then((_) => {
           updateUser(user);
         })
