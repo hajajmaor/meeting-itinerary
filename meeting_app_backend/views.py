@@ -1,5 +1,6 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
+
 
 from .models import Topic, TopicComment
 from .serializers import (
@@ -25,9 +26,15 @@ class TopicViewSet(viewsets.ModelViewSet):
         return super().get_permissions()
 
 
-class TopicCommentViewSet(viewsets.ModelViewSet):
+class TopicCommentViewSet(
+    mixins.CreateModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
     serializer_class = TopicCommentSerializer
     queryset = TopicComment.objects.all()
+    # parameters for the url
+    lookup_field = "id"
 
     def get_permissions(self):
         if self.action in ("create", "update", "partial_update", "destroy"):
