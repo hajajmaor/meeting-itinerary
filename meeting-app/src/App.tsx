@@ -21,6 +21,19 @@ function App() {
     if (process.env.NODE_ENV === "development") {
       console.log("updating user to", user);
     }
+    if (user) {
+      //refresh the access token
+      axios
+        .post(HostPlusPort + "/api/token/refresh/", {
+          refresh: user.refresh_token,
+        })
+        .then((response) => {
+          const newUser = {...user, access_token: response.data.access};
+          setUser(newUser);
+        });
+    } else setUser(user);
+  };
+
   const logOut = () => {
     updateUser(undefined);
   };
@@ -40,8 +53,8 @@ function App() {
   // if defined, set the user to the parsed user
   useEffect(() => {
     const user = localStorage.getItem("user");
-    if (user) {
-      setUser(JSON.parse(user));
+    if (user !== null) {
+      updateUser(JSON.parse(user));
     }
   }, []);
 
@@ -53,24 +66,24 @@ function App() {
       axios
         .post(HostPlusPort + "/api/token/verify/", {token: user.access_token})
         .then((_) => {
-          setUser(user);
+          updateUser(user);
         })
         .catch((_) => {
-          setUser(undefined);
+          updateUser(undefined);
         });
     }
   }, [user]);
 
   const getRoutesIfNotLoggedIn = () => {
-    return <></>;
-  };
-
-  const getRoutesIfLoggedIn = () => {
     return (
       <>
         <Route path="/login" element={<LoginPage />} />
       </>
     );
+  };
+
+  const getRoutesIfLoggedIn = () => {
+    return <></>;
   };
 
   const getRoutes = () => {
@@ -84,14 +97,14 @@ function App() {
       return (
         <>
           {routes}
-          {getRoutesIfLoggedIn()}
+          {getRoutesIfNotLoggedIn()}
         </>
       );
     } else
       return (
         <>
           {routes}
-          {getRoutesIfNotLoggedIn()}
+          {getRoutesIfLoggedIn()}
         </>
       );
   };
