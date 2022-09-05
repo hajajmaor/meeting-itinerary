@@ -42,7 +42,11 @@ services:
     build: ./meeting-app
     restart: always
     ports:
-      - 8080:8080
+      - 3000:3000
     depends_on:
       - meeting-backend
+    links:
+      - meeting-backend
+    environment:
+      - backendHostPlusPort
 
