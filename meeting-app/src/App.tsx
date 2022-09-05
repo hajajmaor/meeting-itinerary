@@ -4,7 +4,7 @@ import {HelmetProvider} from "react-helmet-async";
 import Layout from "./components/Layout";
 
 import {UserContext} from "./contexts/UserContext";
-import IUser from "./models/User.Interface";
+import User, {IUser} from "./models/User.Interface";
 import LoginPage from "./pages/LoginPage";
 
 import "./App.css";
@@ -14,7 +14,7 @@ import TopicsPage from "./pages/topics_page/TopicsPage";
 import SingleTopicPage from "./pages/single_topic_page/SingleTopicPage";
 
 function App() {
-  const [user, setUser] = useState<IUser | undefined>(undefined);
+  const [user, setUser] = useState<User | undefined>(undefined);
 
   // update the user context
   const updateUser = (user: IUser | undefined) => {
@@ -24,7 +24,7 @@ function App() {
     if (user) {
       axios
         .post(HostPlusPort + "/api/token/verify/", {token: user.access_token})
-        .then((_) => setUser(user))
+        .then((_) => setUser(User.fromIUser(user)))
         .catch((_) => setUser(undefined));
     } else {
       setUser(user);

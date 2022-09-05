@@ -207,5 +207,24 @@
       ]
     },
     "tests": []
+  },
+  {
+    "_id": "ecc0f5e6-d54a-48e3-b7fa-ebb503c01a28",
+    "colId": "f9c23a86-3948-4f09-a9d6-5d3203f6419e",
+    "containerId": "",
+    "name": "get role",
+    "url": "http://localhost:8000/api/roles",
+    "method": "GET",
+    "sortNum": 100000,
+    "created": "2022-09-05T12:25:06.730Z",
+    "modified": "2022-09-05T12:30:14.542Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYyNDE2OTQxLCJpYXQiOjE2NjIzODA5NDEsImp0aSI6ImExNTZlOTQzOTk1ODQzZjc5MTU1YjU3OTA3ZGYxNDAwIiwidXNlcl9pZCI6Mn0.Igu80hm940zb5GTnI395kbOVdvkRff4waMw2WrC_wVA"
+      }
+    ],
+    "params": [],
+    "tests": []
   }
 ]

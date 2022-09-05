@@ -4,7 +4,7 @@ import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {HostPlusPort} from "../consts";
 import {UserContext} from "../contexts/UserContext";
-import IUser, {Role} from "../models/User.Interface";
+import User from "../models/User.Interface";
 
 export default function LoginPage() {
     const userContext = useContext(UserContext);
@@ -31,9 +31,8 @@ export default function LoginPage() {
                 const decoded = jwtDecode<ILogin200>(access_token)
                 console.log(decoded);
 
-                const user: IUser = {
-                    access_token, refresh_token, username, role: decoded.role === "admin" ? Role.Admin : Role.User
-                }
+                const user: User = new User(username, access_token, refresh_token);
+
                 userContext.update(user);
                 navigate("/", {replace: true})
             }
