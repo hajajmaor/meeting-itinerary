@@ -17,11 +17,12 @@ function App() {
   const [user, setUser] = useState<IUser | undefined>(undefined);
 
   // update the user context
-  const updateUser = (user: IUser) => {
+  const updateUser = (user: IUser | undefined) => {
     if (process.env.NODE_ENV === "development") {
       console.log("updating user to", user);
     }
-    setUser(user);
+  const logOut = () => {
+    updateUser(undefined);
   };
 
   // save the user to local storage if it's defined
@@ -100,7 +101,7 @@ function App() {
       <HelmetProvider>
         <UserContext.Provider value={{user, update: updateUser}}>
           <Routes>
-            <Route path="/" element={<Layout />}>
+            <Route path="/" element={<Layout logOutfunc={logOut} />}>
               {getRoutes()}
             </Route>
           </Routes>
