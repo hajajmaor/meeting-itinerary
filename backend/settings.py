@@ -17,6 +17,7 @@ from pathlib import Path
 # print(environ)
 # print("DEBUG: ", environ.get("DEBUG"))
 # print("DJANGO_SECRET_KEY: ", environ.get("DJANGO_SECRET_KEY"))
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,11 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-try:
-    SECRET_KEY = environ.get("DJANGO_SECRET_KEY")
-except KeyError:
+SECRET_KEY = environ.get("DJANGO_SECRET_KEY")
+if not SECRET_KEY:
     with open("./.env", "r") as f:
-        SECRET_KEY = f.readline().split(":")[1]
+        SECRET_KEY = f.readline().split("=")[1]
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
