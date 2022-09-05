@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 import ITopic from "../../../models/Topic.interface";
 import './TopicsList.css'
 export default function TopicsList(props: {topics: ITopic[]}) {
@@ -8,10 +9,12 @@ export default function TopicsList(props: {topics: ITopic[]}) {
         <ul>
             {topics.map((topic) => {
                 return <li key={topic.id} className="topic-text">
-                    {topic.topicText}
+                    <Link to={"/topics/" + topic.id} >
+                        {topic.topicText}</Link>
                     <ul >
                         {topic.comments.map((comment) => {
                             return <li key={comment.id} className="comment-text">
+
                                 {comment.commentText}
                             </li>
                         })}
