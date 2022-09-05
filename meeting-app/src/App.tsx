@@ -8,9 +8,10 @@ import IUser from "./models/User.Interface";
 import LoginPage from "./pages/LoginPage";
 
 import "./App.css";
-import TopicsPage from "./pages/TopicsPage";
 import axios from "axios";
 import {HostPlusPort} from "./consts";
+import TopicsPage from "./pages/topics_page/TopicsPage";
+import SingleTopicPage from "./pages/single_topic_page/SingleTopicPage";
 
 function App() {
   const [user, setUser] = useState<IUser | undefined>(undefined);
@@ -75,6 +76,7 @@ function App() {
     let routes = (
       <>
         <Route path="/topics" element={<TopicsPage />} />
+        <Route path="/topics/:id" element={<SingleTopicPage />} />
       </>
     );
     if (user === undefined) {

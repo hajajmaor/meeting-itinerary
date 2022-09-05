@@ -136,5 +136,52 @@
       ]
     },
     "tests": []
+  },
+  {
+    "_id": "dd59cfd5-dd0a-40b2-91b7-cefd750ea0f9",
+    "colId": "f9c23a86-3948-4f09-a9d6-5d3203f6419e",
+    "containerId": "740a9f6f-984a-4438-a7f8-b62df0db5e02",
+    "name": "get all 405",
+    "url": "http://localhost:8000/api/topic_comments",
+    "method": "GET",
+    "sortNum": 80000,
+    "created": "2022-09-05T09:02:06.101Z",
+    "modified": "2022-09-05T09:07:19.648Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "4ac8c28a-fdf0-43ca-a98e-c6dad57283c8",
+    "colId": "f9c23a86-3948-4f09-a9d6-5d3203f6419e",
+    "containerId": "740a9f6f-984a-4438-a7f8-b62df0db5e02",
+    "name": "new comment",
+    "url": "http://localhost:8000/api/topic_comments/",
+    "method": "POST",
+    "sortNum": 90000,
+    "created": "2022-09-05T09:07:31.665Z",
+    "modified": "2022-09-05T10:35:14.529Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYyNDEwMTAyLCJpYXQiOjE2NjIzNzQxMDIsImp0aSI6IjRhMzEwNzlhMjE3NTRmZTI5MTVlMWM4ZmEzMTNmNDM1IiwidXNlcl9pZCI6Miwicm9sZSI6InVzZXIifQ.fvzufUtUGq8c8vHb2cs__c_kei7yj9SoEgnHwTLaVrI"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "formencoded",
+      "raw": "",
+      "form": [
+        {
+          "name": "commentText",
+          "value": "גדכדגכגד"
+        },
+        {
+          "name": "topic",
+          "value": "1"
+        }
+      ]
+    },
+    "tests": []
   }
 ]

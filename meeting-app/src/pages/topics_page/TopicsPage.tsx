@@ -1,12 +1,12 @@
-import AddNewTopic from "../components/topics-page/add-new-topic/AddNewTopic";
-import TopicsList from "../components/topics-page/TopicsList/TopicsList";
 import {Helmet} from "react-helmet-async";
 
 import "./TopicsPage.css";
 import {useEffect, useState} from "react";
-import ITopic from "../models/Topic.interface";
 import axios from "axios";
-import {HostPlusPort} from "../consts";
+import AddNewTopic from "../../components/topics-page/add-new-topic/AddNewTopic";
+import TopicsList from "../../components/topics-page/TopicsList/TopicsList";
+import {HostPlusPort} from "../../consts";
+import ITopic from "../../models/Topic.interface";
 export default function TopicsPage() {
     const [topics, setTopics] = useState<ITopic[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
