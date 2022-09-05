@@ -9,7 +9,7 @@ export default function Layout() {
     return <>
         <header className="my-3 container m-auto">
             <div className="row">
-                <p className="col-md-3">Meeting App</p>
+                <h3 className="col-md-3">Meeting App</h3>
                 <p className="col-md">Hello: {user?.username ?? "Guest"}</p>
             </div>
         </header>
