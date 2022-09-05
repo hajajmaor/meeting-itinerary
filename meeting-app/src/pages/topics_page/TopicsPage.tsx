@@ -1,12 +1,13 @@
 import {Helmet} from "react-helmet-async";
 
 import "./TopicsPage.css";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import AddNewTopic from "../../components/topics-page/add-new-topic/AddNewTopic";
 import TopicsList from "../../components/topics-page/TopicsList/TopicsList";
 import {HostPlusPort} from "../../consts";
 import ITopic from "../../models/Topic.interface";
+import {UserContext} from "../../contexts/UserContext";
 export default function TopicsPage() {
     const [topics, setTopics] = useState<ITopic[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -14,6 +15,7 @@ export default function TopicsPage() {
 
     const [updateRequired, setUpdateRequired] = useState<boolean>(false);
 
+    const user = useContext(UserContext).user;
 
 
     useEffect(() => {
@@ -54,9 +56,12 @@ export default function TopicsPage() {
                     {error && <div>{error}</div>}
                     <TopicsList topics={topics} />
                 </>
-                <div id="addNewTopic mt-3">
-                    <AddNewTopic setUpdateRequired={setUpdateRequired} />
-                </div>
+                {user &&
+                    <div id="addNewTopic mt-3">
+                        <AddNewTopic setUpdateRequired={setUpdateRequired} />
+                    </div>}
+
+                {!user && <p className="text-danger">you must be logged in to add new topics</p>}
             </section>
         </>
     );
