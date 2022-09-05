@@ -1,6 +1,6 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import viewsets, mixins
-
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Topic, TopicComment
 from .serializers import (
@@ -23,6 +23,8 @@ class TopicViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ("update", "partial_update", "destroy"):
             return [IsAdmin()]
+        if self.action == "create":
+            return [IsAuthenticated()]
         return super().get_permissions()
 
 
