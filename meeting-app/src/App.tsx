@@ -21,7 +21,14 @@ function App() {
     if (process.env.NODE_ENV === "development") {
       console.log("updating user to", user);
     }
-    setUser(user);
+    if (user) {
+      axios
+        .post(HostPlusPort + "/api/token/verify/", {token: user.access_token})
+        .then((_) => setUser(user))
+        .catch((_) => setUser(undefined));
+    } else {
+      setUser(user);
+    }
   };
 
   const logOut = () => {
@@ -33,9 +40,7 @@ function App() {
     if (user !== undefined) {
       localStorage.setItem("user", JSON.stringify(user));
     }
-    return () => {
-      localStorage.removeItem("user");
-    };
+    return () => localStorage.removeItem("user");
   }, [user]);
 
   // get the user data from local storage
@@ -43,31 +48,8 @@ function App() {
   // if defined, set the user to the parsed user
   useEffect(() => {
     const user = localStorage.getItem("user");
-    if (user !== null) {
-      updateUser(JSON.parse(user));
-    }
+    if (user !== null) updateUser(JSON.parse(user));
   }, []);
-
-
-  const verifyUser = (user: IUser) =>
-    axios
-      .post(HostPlusPort + "/api/token/verify/", {token: user.access_token});
-
-
-  // verify the user with POST {token:user.access} to /api/token/verify/
-  // if the user is verified, set the user to the user
-  // if the user is not verified, set the user to undefined
-  useEffect(() => {
-    if (user) {
-      verifyUser(user)
-        .then((_) => {
-          updateUser(user);
-        })
-        .catch((_) => {
-          updateUser(undefined);
-        });
-    }
-  }, [user]);
 
   const getRoutesIfNotLoggedIn = () => {
     return (
