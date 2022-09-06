@@ -1,7 +1,9 @@
 import {useContext} from "react";
 import {Link, Outlet} from "react-router-dom";
 import {UserContext} from "../contexts/UserContext";
+import AppFooter from "./app_footer";
 import './layout.css'
+
 
 export default function Layout(props: {logOutfunc: () => void}) {
     const userContext = useContext(UserContext);
@@ -47,9 +49,6 @@ export default function Layout(props: {logOutfunc: () => void}) {
             <Outlet />
         </main>
         <hr />
-        <footer className="container my-3">
-            <a href="https://www.flaticon.com/free-icons/meeting" title="meeting icons">Meeting icons created by Freepik - Flaticon</a>
-        </footer>
+        <AppFooter />
     </>
 }
-

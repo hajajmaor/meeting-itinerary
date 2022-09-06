@@ -12,6 +12,7 @@ import axios from "axios";
 import {HostPlusPort} from "./consts";
 import TopicsPage from "./pages/topics_page/TopicsPage";
 import SingleTopicPage from "./pages/single_topic_page/SingleTopicPage";
+import Homepage from "./pages/home_page/Homepage";
 
 function App() {
   const [user, setUser] = useState<User | undefined>(undefined);
@@ -66,6 +67,7 @@ function App() {
   const getRoutes = () => {
     let routes = (
       <>
+        <Route index element={<Homepage />} />
         <Route path="/topics" element={<TopicsPage />} />
         <Route path="/topics/:id" element={<SingleTopicPage />} />
       </>
