@@ -1,11 +1,5 @@
 # Meeting-itinerary
 
-<style>
-    img{
-        width:350px;
-    }
-</style>
-
 ### What is it?
 
 You have a meeting in your apartment building, let's say a tenant meeting. Everyone wants to see and add a `topic` for this meeting. The building's owner or maintenance company wants to write down his answers and present them to everyone so they can see them later.
