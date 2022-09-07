@@ -9,10 +9,10 @@ services:
     # volumes:
     #   - ./mysql-data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "pa$$worD"
-      MYSQL_DATABASE: "meetingDB"
-      MYSQL_USER: "meeting-name"
-      MYSQL_PASSWORD: "testPassword"
+     - MYSQL_ROOT_PASSWORD
+     - MYSQL_DATABASE
+     - MYSQL_USER
+     - MYSQL_PASSWORD
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 15s
