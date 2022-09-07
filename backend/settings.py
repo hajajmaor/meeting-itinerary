@@ -118,6 +118,15 @@ DATABASES = {
         "PASSWORD": "testPassword",
         "HOST": environ.get("MYSQL_HOST", "127.0.0.1") if not DEBUG else "127.0.0.1",
         "PORT": "3306",
+        # add hebrow support
+        "OPTIONS": {
+            "charset": "utf8mb4",
+            "use_unicode": True,
+            "init_command": "SET character_set_connection=utf8mb4;"
+            "SET collation_connection=utf8mb4_unicode_ci;"
+            "SET NAMES 'utf8mb4';"
+            "SET CHARACTER SET utf8mb4;",
+        },
     }
 }
 
