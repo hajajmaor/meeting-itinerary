@@ -1,6 +1,6 @@
 mysql-data/
 meeting-app/
-
+express-be/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
