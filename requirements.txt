@@ -1,5 +1,5 @@
 asgiref==3.5.2; python_version >= '3.7'
-django==4.1
+django==4.1.2
 django-admin-logs==1.0.2
 django-cors-headers==3.13.0
 django-debug-toolbar==3.6.0
